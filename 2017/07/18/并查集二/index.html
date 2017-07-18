@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="前言 最近海口天气略为湿热，基本上脑子也处于腐朽的状态。最近师傅和哥哥叫我碰了JFinal这个RESTful这个轻量级的框架。感觉脱离了视频自学还是那么困难，只发现一味地去翻手册索然无味，然后就是一堆概念的袭来。DAO、Model、Service、Controller、 View。什么玩意啊，从Servlet和JSP跳到这一块我感觉很懵蔽，特别是AOP那一部分本身就感觉Spring的AOP已经很难">
-<meta name="keywords" content="Java">
+<meta name="description" content="并查集优化quick-union 其实上次我们的实现的并查集俗称quick-find他的时间全部浪费在union上其实我们大可不必这么做我们可以简化union的操作，我们不需要每一次循环数组去指定每一个人的老大，我们可以通过find方法去找。 怎么个找法，我们可以把关系网想成一个大树，在最上面的肯定就是这个关系网的代表人物。那么拿上次的例子乔峰怎么和梦姑确立敌友关系呢，那就是一层一层找梦姑&amp;gt;">
+<meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DAO、Service、Controller、Model、View的简单思考">
-<meta property="og:url" content="http://yoursite.com/2017/05/03/DAO、Service、Controller、Model、View的简单思考/index.html">
+<meta property="og:title" content="扯一扯并查集(二)">
+<meta property="og:url" content="http://yoursite.com/2017/07/18/并查集二/index.html">
 <meta property="og:site_name" content="周卡卡的博客">
-<meta property="og:description" content="前言 最近海口天气略为湿热，基本上脑子也处于腐朽的状态。最近师傅和哥哥叫我碰了JFinal这个RESTful这个轻量级的框架。感觉脱离了视频自学还是那么困难，只发现一味地去翻手册索然无味，然后就是一堆概念的袭来。DAO、Model、Service、Controller、 View。什么玩意啊，从Servlet和JSP跳到这一块我感觉很懵蔽，特别是AOP那一部分本身就感觉Spring的AOP已经很难">
-<meta property="og:updated_time" content="2017-05-03T09:44:36.730Z">
+<meta property="og:description" content="并查集优化quick-union 其实上次我们的实现的并查集俗称quick-find他的时间全部浪费在union上其实我们大可不必这么做我们可以简化union的操作，我们不需要每一次循环数组去指定每一个人的老大，我们可以通过find方法去找。 怎么个找法，我们可以把关系网想成一个大树，在最上面的肯定就是这个关系网的代表人物。那么拿上次的例子乔峰怎么和梦姑确立敌友关系呢，那就是一层一层找梦姑&amp;gt;">
+<meta property="og:updated_time" content="2017-07-18T08:57:16.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DAO、Service、Controller、Model、View的简单思考">
-<meta name="twitter:description" content="前言 最近海口天气略为湿热，基本上脑子也处于腐朽的状态。最近师傅和哥哥叫我碰了JFinal这个RESTful这个轻量级的框架。感觉脱离了视频自学还是那么困难，只发现一味地去翻手册索然无味，然后就是一堆概念的袭来。DAO、Model、Service、Controller、 View。什么玩意啊，从Servlet和JSP跳到这一块我感觉很懵蔽，特别是AOP那一部分本身就感觉Spring的AOP已经很难">
+<meta name="twitter:title" content="扯一扯并查集(二)">
+<meta name="twitter:description" content="并查集优化quick-union 其实上次我们的实现的并查集俗称quick-find他的时间全部浪费在union上其实我们大可不必这么做我们可以简化union的操作，我们不需要每一次循环数组去指定每一个人的老大，我们可以通过find方法去找。 怎么个找法，我们可以把关系网想成一个大树，在最上面的肯定就是这个关系网的代表人物。那么拿上次的例子乔峰怎么和梦姑确立敌友关系呢，那就是一层一层找梦姑&amp;gt;">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/03/DAO、Service、Controller、Model、View的简单思考/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/18/并查集二/"/>
 
 
 
 
 
-  <title>DAO、Service、Controller、Model、View的简单思考 | 周卡卡的博客</title>
+  <title>扯一扯并查集(二) | 周卡卡的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/03/DAO、Service、Controller、Model、View的简单思考/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/并查集二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narrowkaka">
@@ -284,7 +284,7 @@
             
             
               
-                DAO、Service、Controller、Model、View的简单思考
+                扯一扯并查集(二)
               
             
           </h2>
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-03T11:49:01+08:00">
-                2017-05-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T16:57:42+08:00">
+                2017-07-18
               </time>
             
 
@@ -322,8 +322,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -340,7 +340,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/05/03/DAO、Service、Controller、Model、View的简单思考/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/07/18/并查集二/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -349,7 +349,7 @@
 
           
           
-             <span id="/2017/05/03/DAO、Service、Controller、Model、View的简单思考/" class="leancloud_visitors" data-flag-title="DAO、Service、Controller、Model、View的简单思考">
+             <span id="/2017/07/18/并查集二/" class="leancloud_visitors" data-flag-title="扯一扯并查集(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -382,20 +382,20 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>最近海口天气略为湿热，基本上脑子也处于腐朽的状态。最近师傅和哥哥叫我碰了JFinal这个RESTful这个轻量级的框架。感觉脱离了视频自学还是那么困难，只发现一味地去翻手册索然无味，然后就是一堆概念的袭来。DAO、Model、Service、Controller、 View。什么玩意啊，从Servlet和JSP跳到这一块我感觉很懵蔽，特别是AOP那一部分本身就感觉Spring的AOP已经很难去理解，还要火上浇油。</p>
+        <h3 id="并查集优化"><a href="#并查集优化" class="headerlink" title="并查集优化"></a>并查集优化</h3><h4 id="quick-union"><a href="#quick-union" class="headerlink" title="quick-union"></a>quick-union</h4><blockquote>
+<p>其实上次我们的实现的并查集俗称quick-find他的时间全部浪费在union上其实我们大可不必这么做我们可以简化union的操作，我们不需要每一次循环数组去指定每一个人的老大，我们可以通过find方法去找。</p>
+<p>怎么个找法，我们可以把关系网想成一个大树，在最上面的肯定就是这个关系网的代表人物。<br>那么拿上次的例子乔峰怎么和梦姑确立敌友关系呢，那就是一层一层找梦姑&gt;&gt;&gt;虚竹&gt;&gt;&gt;乔峰</p>
+<p>假设阿朱没死的话，乔峰肯定听阿朱的话，那么阿朱的爸爸是段正淳，按照关系网只要把乔峰&gt;&gt;&gt;阿朱&gt;&gt;&gt;段正淳。原本毫无关系的两个关系网变成段正淳为代表人物了。（梦姑&gt;&gt;&gt;虚竹&gt;&gt;&gt;乔峰&gt;&gt;&gt;阿朱&gt;&gt;&gt;段正淳）</p>
+<p>所以根本没有任何必要去遍历处在同一关系网的人指向新的老大。我们只要变动一处即可，就是乔峰作为阿朱的小跟班。那么谁才是真正老大呢，只要老大作为自己的老大那么这个人就是老大（老大节点指向其自身）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class QuickUnion &#123;</div><div class="line">    private int[] id;</div><div class="line">    private int count;</div><div class="line">    public QuickUnion(int n) &#123;</div><div class="line">        id = new int[n];</div><div class="line">        count = n;</div><div class="line">        for(int i=0; i&lt;n; i++) &#123;</div><div class="line">            id[i] = i;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public int find(int p) &#123;</div><div class="line">        while(id[p]!=p) p = id[p];//循环直达自己的序号等于自身的值。</div><div class="line">        return p;</div><div class="line">    &#125;</div><div class="line">    public void union(int p, int q) &#123;</div><div class="line">       int pRoot = find(p);</div><div class="line">       int qRoot = find(q);</div><div class="line">       if(pRoot==qRoot) return;</div><div class="line">       else id[pRoot] = qRoot;</div><div class="line">       count--;</div><div class="line">    &#125;</div><div class="line">    public int getCount() &#123;</div><div class="line">        return count;</div><div class="line">    &#125;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        int n = StdIn.readInt();</div><div class="line">        QuickUnion qu = new QuickUnion(n);</div><div class="line">        while(!StdIn.isEmpty()) &#123;</div><div class="line">            int p = StdIn.readInt();</div><div class="line">            int q = StdIn.readInt();</div><div class="line">            qu.union(p, q);</div><div class="line">        &#125;</div><div class="line">        System.out.println(qu.getCount());</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 </blockquote>
-<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><blockquote>
-<p>首先是MVC这个概念俗称Model-View-Controller的缩写。其实谈不上设计模式，他只是存在在表现层的一种模式。我们可以来简单看一下一般流程是什么加深我自己的理解<br>1.首先是用户通过浏览器在页面上发生操作比如说发微博（当然微博怎么具体操作我不知道我只能稍微敏感下）那么输入完内容肯定是发表了，这一瞬间就会提交给服务器<br>2.根据提交的这个请求跳转到Controller层的具体Action处理，那么接着它会调用可以提供发微博这项服务的Service去<br>3.然后就是通过Service去调用DAO（持久层）全称Data Acess Object，那么DAO是干什么的呢？DAO其实就是封装出来和底层数据库进行操作的对象。（狭义理解广义其实只要对数据有操作都可以算DAO，比如说对数据的写入硬盘）<br>4.DAO再通过对数据库进行CRUD的操作再更改model对象model对象其实就是一个封装了数据的对象（方便进行操作），其实通过fastjson解析这个对象其实可以转换为json数组进行传输！<br>上面只是我对这几个概念的简单理解希望以后能多写些代码再去加深理解</p>
+<h3 id="WeightedQuickUnion"><a href="#WeightedQuickUnion" class="headerlink" title="WeightedQuickUnion"></a>WeightedQuickUnion</h3><blockquote>
+<p>因为添加是按照一定规律的其实会出现一种情况那就是大关系网以小关系网的老大为代表人物，这么做有一点坏处，当这种情况出项一定数量后，导致关系网特别深，找老大的时候会很麻烦，这时候我们，要按照一定的规律来进行就是小关系网挂在大关系网下面，怎么实现呢，我们只要一个数组即可，然后每一个代表人物存取这个关系网的大小即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">public class WeightedQuickUnion &#123;</div><div class="line">    private int id[];</div><div class="line">    private int count;</div><div class="line">    private int sz[];</div><div class="line">    public WeightedQuickUnion(int n) &#123;</div><div class="line">        id = new int[n];</div><div class="line">        sz = new int[n];</div><div class="line">        count = n;</div><div class="line">        for(int i=0;i&lt;n;i++) &#123;</div><div class="line">            id[i] = i;</div><div class="line">        &#125;</div><div class="line">        for(int i=0;i&lt;n;i++) &#123;</div><div class="line">            sz[i] = 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public int find(int p) &#123;</div><div class="line">        while(id[p]!=p) p=id[p];</div><div class="line">        return p;</div><div class="line">    &#125;</div><div class="line">    public int getCount() &#123;</div><div class="line">        return count;</div><div class="line">    &#125;</div><div class="line">    public void union(int p, int q) &#123;</div><div class="line">        int pRoot = find(p);</div><div class="line">        int qRoot = find(q);</div><div class="line">        if(pRoot==qRoot) return;</div><div class="line">        if(sz[pRoot]&lt;sz[qRoot]) &#123;</div><div class="line">            id[pRoot] = qRoot;</div><div class="line">            sz[qRoot] += sz[pRoot]; </div><div class="line">        &#125;else &#123;</div><div class="line">            id[qRoot] = pRoot;</div><div class="line">            sz[pRoot] += sz[qRoot];</div><div class="line">        &#125;</div><div class="line">        count--;</div><div class="line">    &#125;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        long start = System.currentTimeMillis();</div><div class="line">        int n = StdIn.readInt();</div><div class="line">        WeightedQuickUnion wqu = new WeightedQuickUnion(n);</div><div class="line">        while(!StdIn.isEmpty()) &#123;</div><div class="line">            int p = StdIn.readInt();</div><div class="line">            int q = StdIn.readInt();</div><div class="line">            wqu.union(p, q);</div><div class="line">        &#125;</div><div class="line">        long end = System.currentTimeMillis();</div><div class="line">        System.out.println(&quot;spend time:&quot;+(end-start));</div><div class="line">        System.out.println(wqu.getCount());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </blockquote>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
-<p>稍微来说一下RESTful这个概念REST全称（Resource）Representational State Transfer 中文来说就是资源在表现层进行状态转换<br>我们想让表现层状态发生转变，只能用到HTTP协议了，那么只能靠GET（获取资源）、PUT（更新资源）、POST（创建资源）、DELETE（删除资源）。</p>
-<ul>
-<li>每一个URI代表资源</li>
-<li>客户端和服务器之间，传递这种资源的某种表现层；</li>
-<li>客户端通过四个动词，对服务器资源进行操作，实现“表现层状态转化”。</li>
-</ul>
-<p>总的来说就是通过设计服务器端的RESTful的API让客户端访问URI的时候充分利用HTTP协议，让URI符合RESTful这种风格</p>
+<h3 id="路径压缩综合的办法"><a href="#路径压缩综合的办法" class="headerlink" title="路径压缩综合的办法"></a>路径压缩综合的办法</h3><blockquote>
+<p>很简单在每次找到代表人物的时候，可以让其门下所有的小弟指向他。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class PathWeightedUnion &#123;</div><div class="line">    private int id[];</div><div class="line">    private int count;</div><div class="line">    private int sz[];</div><div class="line">    public PathWeightedUnion(int n) &#123;</div><div class="line">        id = new int[n];</div><div class="line">        sz = new int[n];</div><div class="line">        count = n;</div><div class="line">        for(int i=0;i&lt;n;i++) &#123;</div><div class="line">            id[i] = i;</div><div class="line">        &#125;</div><div class="line">        for(int i=0;i&lt;n;i++) &#123;</div><div class="line">            sz[i] = 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    public int find(int p) &#123;</div><div class="line">        int root = p;</div><div class="line">        while(id[root]!=root) root=id[root];</div><div class="line">        while(root!=p) &#123;</div><div class="line">            int temp = id[p];</div><div class="line">            id[p] = root;</div><div class="line">            p = temp;</div><div class="line">        &#125;</div><div class="line">        return root;</div><div class="line">    &#125;</div><div class="line">    public int getCount() &#123;</div><div class="line">        return count;</div><div class="line">    &#125;</div><div class="line">    public void union(int p, int q) &#123;</div><div class="line">        int pRoot = find(p);</div><div class="line">        int qRoot = find(q);</div><div class="line">        if(pRoot==qRoot) return;</div><div class="line">        if(sz[pRoot]&lt;sz[qRoot]) &#123;</div><div class="line">            id[pRoot] = qRoot;</div><div class="line">            sz[qRoot] += sz[pRoot]; </div><div class="line">        &#125;else &#123;</div><div class="line">            id[qRoot] = pRoot;</div><div class="line">            sz[pRoot] += sz[qRoot];</div><div class="line">        &#125;</div><div class="line">        count--;</div><div class="line">    &#125;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        long start = System.currentTimeMillis();</div><div class="line">        int n = StdIn.readInt();</div><div class="line">        PathWeightedUnion pwu = new PathWeightedUnion(n);</div><div class="line">        while(!StdIn.isEmpty()) &#123;</div><div class="line">            int p = StdIn.readInt();</div><div class="line">            int q = StdIn.readInt();</div><div class="line">            pwu.union(p, q);</div><div class="line">        &#125;</div><div class="line">        long end = System.currentTimeMillis();</div><div class="line">        System.out.println(&quot;spend time:&quot;+(end-start));</div><div class="line">        System.out.println(pwu.getCount());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </blockquote>
 
       
@@ -424,12 +424,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-        </div>
-      
 
       
         
@@ -439,18 +433,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/06/2000000以内素数有多少个/" rel="next" title="求2000000以内有多少素数">
-                <i class="fa fa-chevron-left"></i> 求2000000以内有多少素数
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/25/Java动态代理/" rel="prev" title="Java动态代理">
-                Java动态代理 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/18/mybatis初学/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -602,7 +592,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集优化"><span class="nav-number">1.</span> <span class="nav-text">并查集优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#quick-union"><span class="nav-number">1.1.</span> <span class="nav-text">quick-union</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeightedQuickUnion"><span class="nav-number">2.</span> <span class="nav-text">WeightedQuickUnion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径压缩综合的办法"><span class="nav-number">3.</span> <span class="nav-text">路径压缩综合的办法</span></a></li></ol></div>
             
 
           </div>
