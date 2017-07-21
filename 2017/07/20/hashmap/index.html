@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/20/hashmap/index.html">
 <meta property="og:site_name" content="周卡卡的博客">
 <meta property="og:description" content="解决老大难问题HashMap  最近对底层的东西产生了浓重的兴趣。前几天看了关于HashMap的文章，发现自己真的一无所知简直是个垃圾。 首先大家都知道的HashMap相对于HashTable的key和value都可以为null值，但是它是不安全的，因为它本身内部并没有像HashTable那样采用synchronized方法。当然如果你想同步的话可以这么做Map m = Collections.s">
-<meta property="og:updated_time" content="2017-07-20T07:51:08.433Z">
+<meta property="og:updated_time" content="2017-07-20T23:25:54.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap">
 <meta name="twitter:description" content="解决老大难问题HashMap  最近对底层的东西产生了浓重的兴趣。前几天看了关于HashMap的文章，发现自己真的一无所知简直是个垃圾。 首先大家都知道的HashMap相对于HashTable的key和value都可以为null值，但是它是不安全的，因为它本身内部并没有像HashTable那样采用synchronized方法。当然如果你想同步的话可以这么做Map m = Collections.s">
@@ -108,7 +108,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
@@ -388,7 +388,7 @@
 <p>当然既然它叫HashMap顾名思义它以hashing原理工作，在使用<br><code>put(K key,V value)</code>方法的时候会调用<br><code>putVal(int hash, K key, V value, boolean onlyIfAbsent,boolean evict)</code>（存在table里面本质就是个散列表）<br>1.其中hash是hash(key)的值这个函数具体是这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; static final int hash(Object key) &#123;</div><div class="line">        int h;</div><div class="line">        return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>至于后面为什么要先获得key的hashcode异或h无符号右移16位为什么要这么做呢，其实这是一个扰动函数，它是用来混合高低位特性，加大低位随机性，减少碰撞次数。<br>具体解释参考<a href="https://www.zhihu.com/question/20733617" target="_blank" rel="external">胖胖大神的解释</a><br>2.onlyIfAbsent是否会被更新，evict如果是fasle 就说明Node<k,v>[] table正在被建立（初始大小16位，通过hash&amp;table.length-1取得对应的index值）</k,v></p>
 <hr>
-<p>既然知道了put具体是怎么工作的，我们来讲一讲<code>get(Object key)</code>，本质上是<br><code>final Node&lt;K,V&gt; getNode(int hash, Object key)</code>,hash如同上面所得到，但是如果key不同但是我们的hash一样怎么办，我们可以遍历那个链表(其实链表大小大于64会自动变成红黑树)找到我们要的值，那怎么个找法呢其实用到了key.equals(k)来判断。<br>整理过程过程如下<br>1.调用<code>get(Object key)</code><br>2.调用 <code>getNode(int hash, Object key)</code>通过<code>hash(key)</code>值找到具体哈希桶的位置<br>3.通过<code>key.equals(k)</code>遍历找到具体的Value如果变成了红黑树的话<code>getTreeNode(hash, key)</code>找到具体的值前提是有下一个</p>
+<p>既然知道了put具体是怎么工作的，我们来讲一讲<code>get(Object key)</code>，本质上是<br><code>final Node&lt;K,V&gt; getNode(int hash, Object key)</code>,hash如同上面所得到，但是如果key不同但是我们的hash一样怎么办，我们可以遍历那个链表(其实链表大小大于8会自动变成红黑树)找到我们要的值，那怎么个找法呢其实用到了key.equals(k)来判断。<br>整理过程过程如下<br>1.调用<code>get(Object key)</code><br>2.调用 <code>getNode(int hash, Object key)</code>通过<code>hash(key)</code>值找到具体哈希桶的位置<br>3.通过<code>key.equals(k)</code>遍历找到具体的Value如果变成了红黑树的话<code>getTreeNode(hash, key)</code>找到具体的值前提是有下一个</p>
 </blockquote>
 <hr>
 <blockquote>
@@ -627,7 +627,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -726,6 +726,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
