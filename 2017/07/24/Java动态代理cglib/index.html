@@ -90,15 +90,17 @@
 
 
 
-<meta name="description" content="重剑无锋，大巧不工">
-<meta property="og:type" content="website">
-<meta property="og:title" content="周卡卡的博客">
-<meta property="og:url" content="http://yoursite.com/categories/JavaSE/index.html">
+<meta name="description" content="cglib和jdk自带的动态代理 记得上次的动态代理，感觉讲的不是很好，因为我漏了好几个重要的点。而且关于cglib这个基于asm框架的代理也没讲到。求知切记不要一知半解。 从上次的动态代理展开，为什么我们原本jdk自带了动态代理，偏偏又出来个cglib这个额外第三方库呢？人家总不可能是傻子吧，造了的轮子再造一遍。说明自带的动态代理有不足点：委托类必须实现接口(拿上次的例子来说就是学生是委托类，D">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java动态代理之cglib">
+<meta property="og:url" content="http://yoursite.com/2017/07/24/Java动态代理cglib/index.html">
 <meta property="og:site_name" content="周卡卡的博客">
-<meta property="og:description" content="重剑无锋，大巧不工">
+<meta property="og:description" content="cglib和jdk自带的动态代理 记得上次的动态代理，感觉讲的不是很好，因为我漏了好几个重要的点。而且关于cglib这个基于asm框架的代理也没讲到。求知切记不要一知半解。 从上次的动态代理展开，为什么我们原本jdk自带了动态代理，偏偏又出来个cglib这个额外第三方库呢？人家总不可能是傻子吧，造了的轮子再造一遍。说明自带的动态代理有不足点：委托类必须实现接口(拿上次的例子来说就是学生是委托类，D">
+<meta property="og:updated_time" content="2017-07-24T03:34:27.727Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="周卡卡的博客">
-<meta name="twitter:description" content="重剑无锋，大巧不工">
+<meta name="twitter:title" content="Java动态代理之cglib">
+<meta name="twitter:description" content="cglib和jdk自带的动态代理 记得上次的动态代理，感觉讲的不是很好，因为我漏了好几个重要的点。而且关于cglib这个基于asm框架的代理也没讲到。求知切记不要一知半解。 从上次的动态代理展开，为什么我们原本jdk自带了动态代理，偏偏又出来个cglib这个额外第三方库呢？人家总不可能是傻子吧，造了的轮子再造一遍。说明自带的动态代理有不足点：委托类必须实现接口(拿上次的例子来说就是学生是委托类，D">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/JavaSE/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/24/Java动态代理cglib/"/>
 
 
 
 
 
-  <title>分类: JavaSE | 周卡卡的博客</title>
+  <title>Java动态代理之cglib | 周卡卡的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -157,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-right  ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -251,47 +253,208 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        JavaSE
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/20/hashmap/" itemprop="url">
-              
-                <span itemprop="name">HashMap</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-20T15:51:43+08:00"
-              content="2017-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/Java动态代理cglib/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Narrowkaka">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周卡卡的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java动态代理之cglib
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T11:31:36+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/07/24/Java动态代理cglib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/24/Java动态代理cglib/" class="leancloud_visitors" data-flag-title="Java动态代理之cglib">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="cglib和jdk自带的动态代理"><a href="#cglib和jdk自带的动态代理" class="headerlink" title="cglib和jdk自带的动态代理"></a>cglib和jdk自带的动态代理</h3><blockquote>
+<p>记得上次的动态代理，感觉讲的不是很好，因为我漏了好几个重要的点。而且关于cglib这个基于asm框架的代理也没讲到。求知切记不要一知半解。</p>
+<p>从上次的动态代理展开，为什么我们原本jdk自带了动态代理，偏偏又出来个cglib这个额外第三方库呢？人家总不可能是傻子吧，造了的轮子再造一遍。说明自带的动态代理有不足点：<br><strong>委托类必须实现接口(拿上次的例子来说就是学生是委托类，DynamicProxy是代理类)</strong></p>
+<p>现实的开发中不可能所有的类都实现接口吧(好吧虽然这是一个面向接口、面向配置文件编程语言)，所以出现了cglib这个与众不同的轮子，它不是基于反射机制，它是基于asm这个直接能够修改字节码的框架。<strong>我们只要知道一点那就是基于jdk的动态代理他的代理类实际上是实现与它相同的接口，这就意味着你不实现接口jdk的动态代理是无法为您提供服务的</strong></p>
+</blockquote>
+<h3 id="cglib"><a href="#cglib" class="headerlink" title="cglib"></a>cglib</h3><blockquote>
+<p>填完上次的坑，我们来简单看下cglib。我们直接上例子吧<br>我们如上次那样先定义一个不实现Person接口的类Teacher<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class Teacher&#123;</div><div class="line">	public void eat() &#123;</div><div class="line">		System.out.println(&quot;teacher is eating dinner&quot;);</div><div class="line">	&#125;</div><div class="line">	public void drink() &#123;</div><div class="line">		System.out.println(&quot;teacher is drinking juice&quot;);</div><div class="line">	&#125;</div><div class="line">	public void sleep() &#123;</div><div class="line">		System.out.println(&quot;teacher is sleeping&quot;);</div><div class="line">	&#125;</div><div class="line">	public void WC() &#123;</div><div class="line">		System.out.println(&quot;teacher is WCing&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>再是一个方法拦截器类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import java.lang.reflect.Method;</div><div class="line">import net.sf.cglib.proxy.MethodInterceptor;</div><div class="line">import net.sf.cglib.proxy.MethodProxy;</div><div class="line">public class TeacherInterceptor implements MethodInterceptor &#123;</div><div class="line">	public Object intercept(Object obj, Method method, Object[]	args, MethodProxy proxy) throws Throwable &#123;</div><div class="line">		System.out.println(&quot;----starting!----&quot;);</div><div class="line">		Object object = proxy.invokeSuper(obj, args);//调用委托类的原方法</div><div class="line">		System.out.println(&quot;----ending!----&quot;);</div><div class="line">		return object;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后的最后是测试类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import net.sf.cglib.proxy.Enhancer;</div><div class="line">public class TestCglib &#123;</div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Enhancer enhancer = new Enhancer();</div><div class="line">		enhancer.setSuperclass(Teacher.class);</div><div class="line">		enhancer.setCallback(new TeacherInterceptor());</div><div class="line">		Teacher t = (Teacher)enhancer.create();</div><div class="line">		t.drink();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>具体背后怎么实现其实是一种基于索引的方式调用委托类的具体看<a href="http://www.jianshu.com/p/13aa63e1ac95" target="_blank" rel="external">狼哥的分析</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/20/hashmap/" rel="prev" title="HashMap">
+                HashMap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -299,6 +462,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -318,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -401,6 +579,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cglib和jdk自带的动态代理"><span class="nav-number">1.</span> <span class="nav-text">cglib和jdk自带的动态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cglib"><span class="nav-number">2.</span> <span class="nav-text">cglib</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -534,6 +728,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
