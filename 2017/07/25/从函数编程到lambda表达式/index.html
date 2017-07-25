@@ -90,17 +90,20 @@
 
 
 
-<meta name="description" content="并查集 星期五花了一个小时敲完了并查集代码，花了大部分时间去调试结果发现问题源头出在eclipse重定向中与我自身代码并无关系，最后只能命令行运行了。 并查集可能这个名字很多人很陌生，其实我本身也是今天第一次听到这个概念，其中有几个专有名词分别是：触点、连接、等价类、连通分量。可能这么说太抽象了，我拿具体的例子来举个例： 金庸写的小说中肯定有正邪两派之分，那么其中一个一个人物我们称之为触点，那么为">
+<meta name="description" content="函数式编程 这是一门很深的学问，我只是好奇学一下Java8的新特性，没想到要真的理解这玩意，没五六年的浸淫函数式编程完全理解不了的。本来想花个一下午把大概轮廓描绘出来，发现要学会这我得掌握一门函数式编程语言比如Lisp或者Haskell。所以本着不理解会用即可的奥义学了下lambda表达式。  lambda 语言的发展有个共通的特点，就是吸收各家之长，抄来抄去，因为这象征的进步。(美名曰可扩展强，">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="扯一扯并查集(一)">
-<meta property="og:url" content="http://yoursite.com/2017/07/09/并查集(一)/index.html">
+<meta property="og:title" content="lambda表达式">
+<meta property="og:url" content="http://yoursite.com/2017/07/25/从函数编程到lambda表达式/index.html">
 <meta property="og:site_name" content="周卡卡的博客">
-<meta property="og:description" content="并查集 星期五花了一个小时敲完了并查集代码，花了大部分时间去调试结果发现问题源头出在eclipse重定向中与我自身代码并无关系，最后只能命令行运行了。 并查集可能这个名字很多人很陌生，其实我本身也是今天第一次听到这个概念，其中有几个专有名词分别是：触点、连接、等价类、连通分量。可能这么说太抽象了，我拿具体的例子来举个例： 金庸写的小说中肯定有正邪两派之分，那么其中一个一个人物我们称之为触点，那么为">
-<meta property="og:updated_time" content="2017-07-09T14:13:27.976Z">
+<meta property="og:description" content="函数式编程 这是一门很深的学问，我只是好奇学一下Java8的新特性，没想到要真的理解这玩意，没五六年的浸淫函数式编程完全理解不了的。本来想花个一下午把大概轮廓描绘出来，发现要学会这我得掌握一门函数式编程语言比如Lisp或者Haskell。所以本着不理解会用即可的奥义学了下lambda表达式。  lambda 语言的发展有个共通的特点，就是吸收各家之长，抄来抄去，因为这象征的进步。(美名曰可扩展强，">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017022210.jpg">
+<meta property="og:image" content="http://img03.taobaocdn.com/imgextra/i3/90219132/T2PQJnXOJXXXXXXXXX_!!90219132.jpg">
+<meta property="og:updated_time" content="2017-07-25T01:43:36.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="扯一扯并查集(一)">
-<meta name="twitter:description" content="并查集 星期五花了一个小时敲完了并查集代码，花了大部分时间去调试结果发现问题源头出在eclipse重定向中与我自身代码并无关系，最后只能命令行运行了。 并查集可能这个名字很多人很陌生，其实我本身也是今天第一次听到这个概念，其中有几个专有名词分别是：触点、连接、等价类、连通分量。可能这么说太抽象了，我拿具体的例子来举个例： 金庸写的小说中肯定有正邪两派之分，那么其中一个一个人物我们称之为触点，那么为">
+<meta name="twitter:title" content="lambda表达式">
+<meta name="twitter:description" content="函数式编程 这是一门很深的学问，我只是好奇学一下Java8的新特性，没想到要真的理解这玩意，没五六年的浸淫函数式编程完全理解不了的。本来想花个一下午把大概轮廓描绘出来，发现要学会这我得掌握一门函数式编程语言比如Lisp或者Haskell。所以本着不理解会用即可的奥义学了下lambda表达式。  lambda 语言的发展有个共通的特点，就是吸收各家之长，抄来抄去，因为这象征的进步。(美名曰可扩展强，">
+<meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017022210.jpg">
 
 
 
@@ -128,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/09/并查集(一)/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/25/从函数编程到lambda表达式/"/>
 
 
 
 
 
-  <title>扯一扯并查集(一) | 周卡卡的博客</title>
+  <title>lambda表达式 | 周卡卡的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/09/并查集(一)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/从函数编程到lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narrowkaka">
@@ -284,7 +287,7 @@
             
             
               
-                扯一扯并查集(一)
+                lambda表达式
               
             
           </h2>
@@ -299,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T21:38:08+08:00">
-                2017-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T09:44:01+08:00">
+                2017-07-25
               </time>
             
 
@@ -310,28 +313,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -340,7 +321,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/07/09/并查集(一)/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/07/25/从函数编程到lambda表达式/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -349,7 +330,7 @@
 
           
           
-             <span id="/2017/07/09/并查集(一)/" class="leancloud_visitors" data-flag-title="扯一扯并查集(一)">
+             <span id="/2017/07/25/从函数编程到lambda表达式/" class="leancloud_visitors" data-flag-title="lambda表达式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -382,19 +363,17 @@
       
 
       
-        <h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><blockquote>
-<p>星期五花了一个小时敲完了并查集代码，花了大部分时间去调试结果发现问题源头出在eclipse重定向中与我自身代码并无关系，最后只能命令行运行了。</p>
-<p>并查集可能这个名字很多人很陌生，其实我本身也是今天第一次听到这个概念，其中有几个专有名词分别是：触点、连接、等价类、连通分量。可能这么说太抽象了，我拿具体的例子来举个例：</p>
-<p>金庸写的小说中肯定有正邪两派之分，那么其中一个一个人物我们称之为触点，那么为了不与同道中人发生打斗，比如乔峰和段誉这无论如何打不起来，因为他们是拜把子兄弟。那么他们的拜把子兄弟这个关系就是连接的意思。<br>那么怎么等价类怎么理解呢？</p>
-<ul>
-<li>==自反性==：乔峰和乔峰自己是相连的(自己肯定跟自己有关系，为了找出带头大哥也是为了自己崇高理想信念)</li>
-<li>==对称性==：乔峰和段誉有关系，那么段誉与乔峰有关系。</li>
-<li>==传递性==：乔峰和段誉有关系，段誉与虚竹也有关系，那么乔峰与虚竹也有关系。</li>
-</ul>
-<p>最后这三个人形成的关系网算是一个连通分量（当然这是直接与乔峰有关系）,比如梦姑肯定与虚竹有关系，所以梦姑不可能跟乔峰为敌，她也处在这个关系网内。如果我加上阿紫可能关系会乱类似于这种情况先排除。</p>
-<p>那么我们来扯扯快乐的单身汉鸠摩智，鸠摩智他就是一个人，他前期与段誉为敌，那么基本算是跟那个连通分量为敌，乔峰看见不降龙十八掌打死他（竟敢欺负我兄弟，虽然我不屑于跟你纠缠）</p>
-<p>按以上规律我们可以用代码表示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">public class UF&#123;</div><div class="line">	private int[] ids;</div><div class="line">	private int count;</div><div class="line">	public UF(int n) &#123;</div><div class="line">		count = n;</div><div class="line">		ids = new int[n];</div><div class="line">		for(int i=0; i&lt;n; i++) &#123;</div><div class="line">			ids[i]=i;//为了简单都是从0到n的</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public int getCount() &#123;</div><div class="line">		return count;</div><div class="line">	&#125;</div><div class="line">	public int find(int p) &#123;</div><div class="line">		return ids[p];</div><div class="line">	&#125;</div><div class="line">	public boolean connect(int p, int q) &#123;</div><div class="line">		return find(p) == find(q);</div><div class="line">	&#125;</div><div class="line">	public void union(int p, int q) &#123;</div><div class="line">		int pid = find(p);</div><div class="line">		int qid = find(q);</div><div class="line">		for(int i=0;i&lt;ids.length;i++) &#123;</div><div class="line">			if(pid==ids[i]) ids[i] = qid; </div><div class="line">		&#125;</div><div class="line">		count--;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>ids数组下标作为唯一区分人物的id，那么数组值代表他们那一个门派的代表人物比如说乔峰是1号那么ids[虚竹.id]=1，ids[段誉.id]=1；(只是个简略版本后期会优化)；count代表不同派系比如慕容复有自己一派系、乔峰有自己一个派系、鸠摩智快乐的单身汉一派系。我们怎么输入呢？数组大小代表有几个人，然后通过每一对之间是否有关系组成各个派系。（大家可以试一试）</p>
+        <h3 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h3><blockquote>
+<p>这是一门很深的学问，我只是好奇学一下Java8的新特性，没想到要真的理解这玩意，没五六年的浸淫函数式编程完全理解不了的。本来想花个一下午把大概轮廓描绘出来，发现要学会这我得掌握一门函数式编程语言比如Lisp或者Haskell。所以本着不理解会用即可的奥义学了下lambda表达式。</p>
+</blockquote>
+<h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><blockquote>
+<p>语言的发展有个共通的特点，就是吸收各家之长，抄来抄去，因为这象征的进步。(美名曰可扩展强，应用范围广。)但是用的人会感到很窝心(也没叫你用)。但如果想要学一门语言我希望学习的是更加快捷或者更加纯粹的语言这两种语言对我吸引力最大！</p>
+<p>以前我们想获得一个list每个字符串的首字母的List会怎么写？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">package tech.zly.Lambda;</div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">import java.util.stream.Collectors;</div><div class="line">public class TestLambda &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">    	List&lt;String&gt; _old = new ArrayList&lt;&gt;();</div><div class="line">    	_old.add(&quot;zzw&quot;);</div><div class="line">    	_old.add(&quot;zly&quot;);</div><div class="line">    	List&lt;Character&gt; _new = new ArrayList&lt;&gt;();</div><div class="line">    	for(int i=0;i&lt;_old.size();i++) &#123;</div><div class="line">    		_new.add(_old.get(i).charAt(2));</div><div class="line">    	&#125;</div><div class="line">    	for(int i=0;i&lt;_new.size();i++) &#123;</div><div class="line">    		System.out.println(_new.get(i));</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那么后来我们用了lambda表达式呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">package tech.zly.Lambda;</div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.List;</div><div class="line">import java.util.stream.Collectors;</div><div class="line">public class TestLambda &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">    	List&lt;String&gt; _old = new ArrayList&lt;&gt;();</div><div class="line">    	_old.add(&quot;zzw&quot;);</div><div class="line">    	_old.add(&quot;zly&quot;);</div><div class="line">    	List&lt;Character&gt; _new = _old.stream().map(e-&gt;e.charAt(2)).collect(Collectors.toList());</div><div class="line">    	_new.forEach(System.out::println);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个map函数让我想起了某天下午切图仔的数组去重小程序，承认想到这个利用键值无法重复的来达到去重效果的程序实在太厉害了。对于map的理解可能想的不是很明白，当然现在我明白了。</p>
+<p>要讲map我得稍微说一下范畴论显得严谨些，首先简单说一下范畴就是一些点(对象)和一些关系(态射)的集合<img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017022210.jpg" alt="范畴"><br>而再抽象些如果有两个范畴它们之间存在一定的关系，那么实际上他们之间的关系称之为函子，这个函子就与我们的map有关系了<br><img src="http://img03.taobaocdn.com/imgextra/i3/90219132/T2PQJnXOJXXXXXXXXX_!!90219132.jpg" alt=""><br>map就是从一个范畴到另外一个范畴的映射，比如一个范畴里面包含两个人zzw和zly他们的关系(态射)是室友，通过一个叫做<strong>你喜欢什么编程语言</strong>的函数变成包含JavaScript和Java的范畴，它们之间的关系其实是雷锋和雷峰塔之间的关系。</p>
+<p>看个范例(简单应用具体作用看API从字面意思即可推测)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; nums = Lists.newArrayList(1,1,null,2,3,4,null,5,6,7,8,9,10);</div><div class="line">   System.out.println(&quot;sum is:&quot;+nums.stream().filter(num -&gt; num != null).</div><div class="line">    								 distinct().mapToInt(num -&gt; num * 2).</div><div class="line">    	 			peek(System.out::println).skip(2).limit(4).sum());//peek意味着被操作</div></pre></td></tr></table></figure></p>
+<p>严格意义上来说Stream相当于一个范畴类，但是Java的lambda表达式终究感觉有那么一点奇怪，虽然相当于能够传入参数了，简化了一定量的操作，可是跟new混用在一起对于我这种心里洁癖终究有点奇怪。</p>
 </blockquote>
 
       
@@ -432,18 +411,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/18/mybatis初学/" rel="next" title="mybatis初学">
-                <i class="fa fa-chevron-left"></i> mybatis初学
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/06/2000000以内素数有多少个/" rel="prev" title="求2000000以内有多少素数">
-                求2000000以内有多少素数 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/24/Java动态代理cglib/" rel="prev" title="Java动态代理之cglib">
+                Java动态代理之cglib <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -595,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集"><span class="nav-number">1.</span> <span class="nav-text">并查集</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式编程"><span class="nav-number">1.</span> <span class="nav-text">函数式编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda"><span class="nav-number">2.</span> <span class="nav-text">lambda</span></a></li></ol></div>
             
 
           </div>
