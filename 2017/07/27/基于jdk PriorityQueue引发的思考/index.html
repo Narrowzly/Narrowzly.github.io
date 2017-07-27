@@ -90,17 +90,19 @@
 
 
 
-<meta name="description" content="mybatis初学 这几天真是被数据库玩坏了，几个小垃圾select语句就调试半天（主要是数据库关键字不能当列名气死我了-_-#），不管是实习公司三个限定范围查询语句还是室友项目这边数据api提供，不过总算把mybatis整体流程摸了个遍。不管是接触的半生不熟的Spring还是现阶段在学的mybatis，一个共通点我大部分时间都是再写配置文件。mybatis的具体思路是这样的：  首先配置myba">
+<meta name="description" content="前言 众所周知堆排序就是个二叉堆，其实本质上就是个完全二叉树,我其实是想讲堆排序的，可为什么会和优先队列扯上关系呢，而优先队列又为何和jdk扯上关系呢。看完你就明白的  ###优先队列  优先队列顾名思义，是带有优先级的队列，普通队列是怎么样的(先进先出),那么优先级队列呢肯定是优先级最大的先出，这有什么好处？ 我们可以通过它来得到最大数或者最小数，也能插入数字 映射到现实中来说某一天你跟室友去吃">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mybatis初学">
-<meta property="og:url" content="http://yoursite.com/2017/07/18/mybatis初学/index.html">
+<meta property="og:title" content="基于jdk PriorityQueue引发的思考">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/基于jdk PriorityQueue引发的思考/index.html">
 <meta property="og:site_name" content="周卡卡的博客">
-<meta property="og:description" content="mybatis初学 这几天真是被数据库玩坏了，几个小垃圾select语句就调试半天（主要是数据库关键字不能当列名气死我了-_-#），不管是实习公司三个限定范围查询语句还是室友项目这边数据api提供，不过总算把mybatis整体流程摸了个遍。不管是接触的半生不熟的Spring还是现阶段在学的mybatis，一个共通点我大部分时间都是再写配置文件。mybatis的具体思路是这样的：  首先配置myba">
-<meta property="og:updated_time" content="2017-07-18T09:02:53.968Z">
+<meta property="og:description" content="前言 众所周知堆排序就是个二叉堆，其实本质上就是个完全二叉树,我其实是想讲堆排序的，可为什么会和优先队列扯上关系呢，而优先队列又为何和jdk扯上关系呢。看完你就明白的  ###优先队列  优先队列顾名思义，是带有优先级的队列，普通队列是怎么样的(先进先出),那么优先级队列呢肯定是优先级最大的先出，这有什么好处？ 我们可以通过它来得到最大数或者最小数，也能插入数字 映射到现实中来说某一天你跟室友去吃">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/24pq/images/heap.png">
+<meta property="og:updated_time" content="2017-07-27T06:51:44.069Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mybatis初学">
-<meta name="twitter:description" content="mybatis初学 这几天真是被数据库玩坏了，几个小垃圾select语句就调试半天（主要是数据库关键字不能当列名气死我了-_-#），不管是实习公司三个限定范围查询语句还是室友项目这边数据api提供，不过总算把mybatis整体流程摸了个遍。不管是接触的半生不熟的Spring还是现阶段在学的mybatis，一个共通点我大部分时间都是再写配置文件。mybatis的具体思路是这样的：  首先配置myba">
+<meta name="twitter:title" content="基于jdk PriorityQueue引发的思考">
+<meta name="twitter:description" content="前言 众所周知堆排序就是个二叉堆，其实本质上就是个完全二叉树,我其实是想讲堆排序的，可为什么会和优先队列扯上关系呢，而优先队列又为何和jdk扯上关系呢。看完你就明白的  ###优先队列  优先队列顾名思义，是带有优先级的队列，普通队列是怎么样的(先进先出),那么优先级队列呢肯定是优先级最大的先出，这有什么好处？ 我们可以通过它来得到最大数或者最小数，也能插入数字 映射到现实中来说某一天你跟室友去吃">
+<meta name="twitter:image" content="http://algs4.cs.princeton.edu/24pq/images/heap.png">
 
 
 
@@ -128,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/18/mybatis初学/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/27/基于jdk PriorityQueue引发的思考/"/>
 
 
 
 
 
-  <title>mybatis初学 | 周卡卡的博客</title>
+  <title>基于jdk PriorityQueue引发的思考 | 周卡卡的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/18/mybatis初学/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/基于jdk PriorityQueue引发的思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Narrowkaka">
@@ -284,7 +286,7 @@
             
             
               
-                mybatis初学
+                基于jdk PriorityQueue引发的思考
               
             
           </h2>
@@ -299,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T16:57:42+08:00">
-                2017-07-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T14:52:03+08:00">
+                2017-07-27
               </time>
             
 
@@ -322,8 +324,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/框架/" itemprop="url" rel="index">
-                    <span itemprop="name">框架</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
                   </a>
                 </span>
 
@@ -340,7 +353,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/07/18/mybatis初学/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/07/27/基于jdk PriorityQueue引发的思考/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -349,7 +362,7 @@
 
           
           
-             <span id="/2017/07/18/mybatis初学/" class="leancloud_visitors" data-flag-title="mybatis初学">
+             <span id="/2017/07/27/基于jdk PriorityQueue引发的思考/" class="leancloud_visitors" data-flag-title="基于jdk PriorityQueue引发的思考">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -382,20 +395,31 @@
       
 
       
-        <h3 id="mybatis初学"><a href="#mybatis初学" class="headerlink" title="mybatis初学"></a>mybatis初学</h3><blockquote>
-<p>这几天真是被数据库玩坏了，几个小垃圾select语句就调试半天（主要是数据库关键字不能当列名气死我了-_-#），不管是实习公司三个限定范围查询语句还是室友项目这边数据api提供，不过总算把mybatis整体流程摸了个遍。<br>不管是接触的半生不熟的Spring还是现阶段在学的mybatis，一个共通点我大部分时间都是再写配置文件。<br>mybatis的具体思路是这样的：</p>
-<ol>
-<li>首先配置mybatis-config而这是整个mybatis的源，因为其中的SessionFactoryBuilder是靠这个配置文件来new出相应的SessionFactory(对应着一个数据库),而SesssionFactory又是SqlSession的生产者，而SqlSession又是来直接执行已映射的sql语句。</li>
-<li>配置mappers(映射器),mybatis通过映射器去寻找相应的sql语句其实也就是。</li>
-<li>其中动态生成的操作可以发生在第一步environments的配置，可以指定properties 配置。当然environments其实可以配置多个environment.<br>那么具体配置的加载顺序是怎么样的呢？</li>
-</ol>
-<ul>
-<li>在properties元素体内指定的属性首先被读取。</li>
-<li>然后根据properties元素中的resource属性读取类路径下属性文件或根据url属性指定的路径读取属性文件，并覆盖已读取的同名文件。</li>
-<li>最后就是传递进来方法参数的赋值，当然优先级最大的肯定就是environment中写死的property<br>为了方便后期的操作我们可以指定typeAliases指定别名那么在相应的包下的类只要写上@Alias(“”)就可以省略包名了</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public class DBUtil &#123;</div><div class="line">	private static DBUtil db;</div><div class="line">	private String resource;</div><div class="line">	private InputStream inputStream;</div><div class="line">	private SqlSessionFactory sqlSessionFactory;</div><div class="line">	private DBUtil() &#123;</div><div class="line">		resource = &quot;config/mybatis-config.xml&quot;;</div><div class="line">		try &#123;</div><div class="line">			inputStream = Resources.getResourceAsStream(resource);</div><div class="line">			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);</div><div class="line">		&#125; catch (IOException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public static DBUtil getInstance() &#123;</div><div class="line">		return db==null?new DBUtil():db;</div><div class="line">	&#125;</div><div class="line">	public SqlSession getSqlSeesion() &#123;</div><div class="line">		return sqlSessionFactory.openSession();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>为了指定mapper的唯一标识我们可以指定mapper的namespace，mapper最重要的思想就是把select的结果映射到相应的实体类中。你直接指定returnType的话就是通过了map自动映射到实体类中去了。returnMap就是去解决复杂的映射，如果1对1比如说model类中带有着一个对象中去(一般意思就是一个博客有一个用户这就是一对一。)，你指定什么属性映射到什么列名（命名了列别名就是列别名）。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>众所周知堆排序就是个二叉堆，其实本质上就是个完全二叉树,我其实是想讲堆排序的，可为什么会和优先队列扯上关系呢，而优先队列又为何和jdk扯上关系呢。看完你就明白的</p>
+</blockquote>
+<p>###优先队列</p>
+<blockquote>
+<p>优先队列顾名思义，是带有优先级的队列，普通队列是怎么样的(先进先出),那么优先级队列呢肯定是优先级最大的先出，这有什么好处？</p>
+<p>我们可以通过它来得到最大数或者最小数，也能插入数字</p>
+<p>映射到现实中来说某一天你跟室友去吃饭，外面有很多家餐馆。你们一开始没有任何的计划，只是心中确定了几家自己平时较常来的餐馆。A餐馆价格高，非常好吃；B餐馆价格便宜，好吃；C餐馆价格一般，比较好吃。那么根据你们当天的心情就会有不同的选择。比如说月底了大家都没钱可想吃好吃的，那么B餐馆的优先级别肯定是最大的。当然新开了一家不错的餐馆也有可能加入计划行列中来。</p>
+<p>我们可能没什么思路去实现一个优先队列，那么怎么办呢，jdk源码就是很好的学习地方<br>找到java.util.PriorityQueue这个类我们发现几个关键成员变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">private static final int DEFAULT_INITIAL_CAPACITY = 11;</div><div class="line">transient Object[] queue; </div><div class="line">private int size = 0;</div><div class="line">private final Comparator&lt;? super E&gt; comparator;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>1.第一个不用说了默认初始化大小为11<br>2.很神奇它是靠一个Object数组维持一个优先队列的<br>3.size记录它的大小<br>4.comparator肯定是意味着靠它来比较优先级大小</p>
+<blockquote>
+<p>接下来我们就彻底懵圈了，我们该怎么看？我们可以先从<code>add(E e)</code>这个一般队列都有的方法为突破口。发现<code>add(E e)</code>实际上调用了offer(E e)这个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public boolean offer(E e) &#123;</div><div class="line">       if (e == null)</div><div class="line">           throw new NullPointerException();</div><div class="line">       modCount++;</div><div class="line">       int i = size;</div><div class="line">       if (i &gt;= queue.length)</div><div class="line">           grow(i + 1);</div><div class="line">       size = i + 1;</div><div class="line">       if (i == 0)</div><div class="line">           queue[0] = e;</div><div class="line">       else</div><div class="line">           siftUp(i, e);</div><div class="line">       return true;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以发现以下几点:<br>1.参数不能为null<br>2.当size大小大于等于队列长度会自动扩容(队列长度小于64扩容至size的2倍是大小反之增加原来的50%)<br>3.我们发现一个特别的方法<code>private void siftUp(int k, E x)</code> ,而其中在是否传入comparator作出了两个方法分别的选择，我们简单起见看<code>private void siftUpComparable(int k, E x)</code>这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private void siftUpComparable(int k, E x) &#123;</div><div class="line">        Comparable&lt;? super E&gt; key = (Comparable&lt;? super E&gt;) x;</div><div class="line">        while (k &gt; 0) &#123;</div><div class="line">            int parent = (k - 1) &gt;&gt;&gt; 1;</div><div class="line">            Object e = queue[parent];</div><div class="line">            if (key.compareTo((E) e) &gt;= 0)</div><div class="line">                break;</div><div class="line">            queue[k] = e;</div><div class="line">            k = parent;</div><div class="line">        &#125;</div><div class="line">        queue[k] = key;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>可能看不明白，我稍微敏感一下，parent是插入位置的父节点的位置，(k-1)/2，如果它比它的父亲节点大就赋值在这个位置k，反之循环，直到循环结束再赋值。</p>
+<p>这个循环十分精妙精妙在哪里，精妙在如果在循环内部交换n次的话的话会赋值3n次，但是拿出来就不一样了，总共需要n+2次。我们其实可以发现这个数组最小的默认在第一个。而且父亲结点都是比孩子节点小的。<br>有没有发现这个数组的结构很熟悉，其实它就是个完全二叉树(二叉堆)<br><img src="http://algs4.cs.princeton.edu/24pq/images/heap.png" alt=""><br>当然上图只是举例子说明样子。</p>
+<p>当然对应的我们照猫画虎可以自己实现个简单的优先队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class PriorityQueue&lt;T&gt; &#123;</div><div class="line">	private Comparable&lt;T&gt;[] keys;</div><div class="line">	private int size;</div><div class="line">	@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">	public PriorityQueue (int max) &#123;</div><div class="line">		keys = new Comparable[max+1];</div><div class="line">		size = 0;</div><div class="line">	&#125;</div><div class="line">	public int getSize() &#123;</div><div class="line">		return size;</div><div class="line">	&#125;</div><div class="line">	public void insert(Comparable&lt;T&gt; a) &#123;</div><div class="line">		keys[++size] = a;</div><div class="line">		swim(size);</div><div class="line">	&#125;</div><div class="line">	public Comparable&lt;T&gt; delMax() &#123;</div><div class="line">		Comparable&lt;T&gt; max = keys[1];</div><div class="line">		exch(1, size);</div><div class="line">		keys[size] = null;</div><div class="line">		size--;</div><div class="line">		sink(1);</div><div class="line">		return max;</div><div class="line">	&#125;</div><div class="line">	public void exch(int i, int j) &#123;</div><div class="line">		Comparable&lt;T&gt; temp = keys[i];</div><div class="line">		keys[i] = keys[j];</div><div class="line">		keys[j] = temp;</div><div class="line">	&#125;</div><div class="line">	@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">	public boolean less(int i, int j) &#123;</div><div class="line">		if (keys[i].compareTo((T)keys[j]) &lt; 0)</div><div class="line">			return true;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	public void swim(int k) &#123;</div><div class="line">		Comparable&lt;T&gt; key = keys[k];</div><div class="line">		while(k&gt;1) &#123;</div><div class="line">			if(less(k/2 , k))</div><div class="line">			exch(k, k/2);       </div><div class="line">			k = k/2;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public boolean isEmpty() &#123;</div><div class="line">		return size==0;</div><div class="line">	&#125;</div><div class="line">	public void sink(int k) &#123;</div><div class="line">		while(2*k&lt;=size) &#123;</div><div class="line">			int j=2*k;</div><div class="line">			if(less(j, j+1)) j++;</div><div class="line">			if(!less(k, j)) break;       </div><div class="line">			else exch(k, j);</div><div class="line">			k=j;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我的swim对应源码的siftUp,sink对应siftDown(当然没有优化过方便理解)</p>
+<p>假设在小顶堆中插入操作相当于插在队列最后再不断上升直到不能再小了，而删除最小操作则是拿根节点的值跟最后面的值交换，再把最后的值设为null，再size减小。</p>
+</blockquote>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><blockquote>
+<p>思路很简单我们想要一个升序的序列<br>1.先构建一个大顶堆<br>2.不断从大顶堆的根节点跟最后面的值交换，然后不设置为null，只是让size减小，那么逐渐变得有序。(我们无法去比较左右叶子节点的大小)</p>
+<p>实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public class HeapSort &#123;</div><div class="line">	private static &lt;T&gt;void sink(Comparable&lt;T&gt;[] a, int k, int len) &#123;</div><div class="line">		while(2*k&lt;len) &#123;</div><div class="line">			int j=2*k;</div><div class="line">			if(j&lt;len&amp;&amp;less(a, j, j+1)) j++;</div><div class="line">			if(less(a, j, k)) break;</div><div class="line">			exch(a, j, k);</div><div class="line">			k = j;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	private static &lt;T&gt;void exch(Comparable&lt;T&gt;[] a, int i, int j) &#123;</div><div class="line">		Comparable&lt;T&gt; temp = a[i-1];</div><div class="line">		a[i-1] = a[j-1];</div><div class="line">		a[j-1] = temp;</div><div class="line">	&#125;</div><div class="line">	@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">	private static &lt;T&gt; boolean less(Comparable&lt;T&gt;[] a, int i, int j) &#123;</div><div class="line">		return a[i-1].compareTo((T)a[j-1])&lt;0;</div><div class="line">	&#125;</div><div class="line">	private static &lt;T&gt; void sort(Comparable&lt;T&gt;[] a) &#123;</div><div class="line">		int len = a.length;</div><div class="line">		for(int i=len/2;i&gt;=1;i--) &#123;</div><div class="line">			sink(a, i, len);//0123-&gt;1234(操作exch和less index即可)</div><div class="line">		&#125;</div><div class="line">		while(len&gt;1) &#123;</div><div class="line">			exch(a, 1, len--);</div><div class="line">			sink(a, 1, len);//=1变0，已经到底一次了</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	private static &lt;T&gt; void show(Comparable&lt;T&gt;[] a) &#123;</div><div class="line">		for(int i=0;i&lt;a.length;i++) &#123;</div><div class="line">			System.out.print(a[i]+&quot; &quot;);</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
 </blockquote>
 
       
@@ -433,18 +457,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/18/并查集二/" rel="next" title="扯一扯并查集(二)">
-                <i class="fa fa-chevron-left"></i> 扯一扯并查集(二)
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/09/并查集(一)/" rel="prev" title="扯一扯并查集(一)">
-                扯一扯并查集(一) <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/25/从函数编程到lambda表达式/" rel="prev" title="lambda表达式">
+                lambda表达式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -596,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mybatis初学"><span class="nav-number">1.</span> <span class="nav-text">mybatis初学</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆排序"><span class="nav-number">2.</span> <span class="nav-text">堆排序</span></a></li></ol></div>
             
 
           </div>
