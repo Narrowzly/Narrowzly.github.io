@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言 从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。 红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。 二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；（3">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红黑树">
+<meta property="og:url" content="http://yoursite.com/2017/08/10/红黑树/index.html">
+<meta property="og:site_name" content="周卡卡的博客">
+<meta property="og:description" content="前言 从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。 红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。 二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；（3">
+<meta property="og:image" content="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=6dbe1b7a6059252da7171a06049a032c/203fb80e7bec54e78296e37eb9389b504fc26a5c.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/08/10/红黑树/红黑树.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-anatomy.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert2.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert3c.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert3a.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/redblack-1-1.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/redblack-right-rotate.png">
+<meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/color-flip.png">
+<meta property="og:updated_time" content="2017-08-10T08:35:25.821Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红黑树">
+<meta name="twitter:description" content="前言 从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。 红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。 二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；（3">
+<meta name="twitter:image" content="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=6dbe1b7a6059252da7171a06049a032c/203fb80e7bec54e78296e37eb9389b504fc26a5c.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/10/红黑树/"/>
+
+
+
+
+
+  <title>红黑树 | 周卡卡的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">周卡卡的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/10/红黑树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Narrowkaka">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周卡卡的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                红黑树
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T20:44:41+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/08/10/红黑树/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/10/红黑树/" class="leancloud_visitors" data-flag-title="红黑树">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。</p>
+<p>红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。</p>
+<p>二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：<br>（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；<br>（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；<br>（3）左、右子树也分别为二叉查找树；<br><img src="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=6dbe1b7a6059252da7171a06049a032c/203fb80e7bec54e78296e37eb9389b504fc26a5c.jpg" alt="">.<br>当然如果要说二叉查找树的话我们必须从符号表说起，可我们今天的目的是为了简述红黑树，所以二叉查找树的各种实现就当大家都已经懂得。</p>
+<p>那为什么会出现红黑树呢，我们发现一种情况当输入的键值对键值按升序或者降序插入的时候，会有下图的情况出现<br><img src=".\红黑树.png" alt="红黑树.png"></p>
+<p>而这种情况也是最糟糕的情况假设我们要查找键为5的结点，那么花费的时间就是最长的了，我们发现其实查找时间其实跟树的高度应该是呈现一种正比的关系。<br>那么可能有些同学想到了平衡二叉查找树，也就是任何节点的两个子树的高度最大差别为一。但是我们发现一个问题，那就是每次插入或者删除需要平衡次数非常多。那么有什么什么折中的方案既能保证能正常二叉查找树的性质又能保证查找的效率。</p>
+</blockquote>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><blockquote>
+<p>没错就是红黑树，不过为了理解红黑树我们需要做一些准备工作，首先我们要了解一下B-树中最简单的2-3树。</p>
+<p><img src="http://algs4.cs.princeton.edu/33balanced/images/23tree-anatomy.png" alt=""></p>
+<p>这是一颗很神奇的树，包含2-结点(1个键两个链接)和3-结点(2个键3个链接)。</p>
+<p>我们只要记住几点就是一个新的键插入2-结点直接变3-结点，<br><img src="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert2.png" alt=""><br>而当要插入到3-结点时，那么变成4-结点，4-结点中间的键值上升到父结点直到父节点是一个2-结点<br><img src="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert3c.png" alt=""><br>或者到了根节点还不是2-结点那么根节点直接分解使高度加一<br><img src="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert3a.png" alt=""></p>
+<p>可能觉得2-3树已经完美解决我们的问题了,但现实往往不尽人意，为什么呢？？</p>
+<p>首先表示一颗2-3树光表示2-结点和3-结点和它们之间的转换就需要花费力气，而且我们可能需要要跟结点之内的键值进行比较，而它实际插入情况7种，代表着光判断起码写7个if，2-3树解决我们的问题，可是实际书写显得比较复杂</p>
+<p>我们需要一种简单的数据结构来解决我们的问题对了就是红黑树，它其实就是2-3树的变形.它其中有两种链接一种是红链接一种是黑链接(指向的结点颜色就是链接颜色)，用这两种链接就能表示我们2-3树。如下图。<br><img src="http://algs4.cs.princeton.edu/33balanced/images/redblack-1-1.png" alt=""><br>当然红黑树有以下几个特点:<br>1.红链接均为左链接。<br>2.没有任何一个结点和两条红链接相连。<br>3.而且它是完美黑色平衡的(叶子结点到根结点黑色链接数量都是相同的)。<br>但是现实是残酷的，我们在对红黑树做操作的时候是有可能出现红色右链接或者连续两条红色链接。我们这时候可以通过旋转或者上移中键进行操作而对其进行操作<br><img src="http://algs4.cs.princeton.edu/33balanced/images/redblack-right-rotate.png" alt=""><br><img src="http://algs4.cs.princeton.edu/33balanced/images/color-flip.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">public class RBBST&lt;Key extends Comparable&lt;Key&gt;, Value&gt; &#123;</div><div class="line">	private Node root;</div><div class="line">	private static final boolean RED = true;</div><div class="line">	private static final boolean BLACK = false;</div><div class="line">	private class Node &#123;</div><div class="line">		private Node left;</div><div class="line">		private Node right;</div><div class="line">		private boolean color;</div><div class="line">		private Key key;</div><div class="line">		private Value val;</div><div class="line">		private int N;</div><div class="line">		public Node(boolean color, Key key, Value val, int N) &#123;</div><div class="line">			this.color = color;</div><div class="line">			this.key = key;</div><div class="line">			this.val = val;</div><div class="line">			this.N = N;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	public int size() &#123;</div><div class="line">		return size(root);</div><div class="line">	&#125;</div><div class="line">	private int size(Node n) &#123;</div><div class="line">		if(n==null) &#123;</div><div class="line">			return 0;</div><div class="line">		&#125;</div><div class="line">		return n.N;</div><div class="line">	&#125;</div><div class="line">	private boolean isRed(Node n) &#123;</div><div class="line">		if(n==null) return false;</div><div class="line">		return n.color == RED;</div><div class="line">	&#125;</div><div class="line">	private Node rotateLeft(Node n) &#123;</div><div class="line">		Node x = n.right;</div><div class="line">		n.right = x.left;</div><div class="line">		x.left = n;</div><div class="line">		x.color = n.color;</div><div class="line">		n.color = RED;</div><div class="line">		x.N = n.N;</div><div class="line">		n.N = size(n.left)+size(n.right)+1;</div><div class="line">		return x;</div><div class="line">	&#125;</div><div class="line">	private Node rotateRight(Node n) &#123;</div><div class="line">		Node x = n.left;</div><div class="line">		n.left = x.right;</div><div class="line">		x.right = n;</div><div class="line">		x.color = n.color;</div><div class="line">		n.color = RED;</div><div class="line">		x.N = n.N;</div><div class="line">		n.N = size(n.left)+size(n.right)+1;//变了 变成x了</div><div class="line">		return x;</div><div class="line">	&#125;</div><div class="line">	private void change2Conn(Node n) &#123;</div><div class="line">		n.left.color = BLACK;</div><div class="line">		n.right.color = BLACK;</div><div class="line">		n.color = RED;</div><div class="line">		//return n;还是原来的</div><div class="line">	&#125;</div><div class="line">	public void put(Key key, Value val) &#123;</div><div class="line">		root = put(root, key, val);</div><div class="line">        root.color = BLACK;</div><div class="line">	&#125;</div><div class="line">	private Node put(Node n, Key key, Value val) &#123;</div><div class="line">		if(n==null) &#123;</div><div class="line">			return new Node(RED, key, val, 1);</div><div class="line">		&#125;</div><div class="line">		int cmp = key.compareTo(n.key);</div><div class="line">		if(cmp&lt;0) n.left = put(n.left, key, val);</div><div class="line">		else if(cmp&gt;0) n.right = put(n.right, key, val);</div><div class="line">		else n.val = val; //find key</div><div class="line">		if(!isRed(n.left)&amp;&amp;isRed(n.right)) n = rotateLeft(n);</div><div class="line">		if(isRed(n.left)&amp;&amp;isRed(n.left.left)) n = rotateRight(n);</div><div class="line">		if(isRed(n.left)&amp;&amp;isRed(n.right)) change2Conn(n);</div><div class="line">		n.N = size(n.left) + size(n.right) + 1;</div><div class="line">		return n;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你以为到这里就完了吗，本着求知的态度我们继续讲一讲HashMap这个Java里面无比精妙的类</p>
+</blockquote>
+<h3 id="HashMap-红黑树实现"><a href="#HashMap-红黑树实现" class="headerlink" title="HashMap 红黑树实现"></a>HashMap 红黑树实现</h3><blockquote>
+<p>就看两段代码理解了HashMap的红黑树实现也就大致理解了<br>左旋转<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">static &lt;K,V&gt; TreeNode&lt;K,V&gt; rotateLeft(TreeNode&lt;K,V&gt; root,</div><div class="line">                                              TreeNode&lt;K,V&gt; p) &#123;</div><div class="line">            TreeNode&lt;K,V&gt; r, pp, rl;</div><div class="line">            if (p != null &amp;&amp; (r = p.right) != null) &#123;</div><div class="line">                if ((rl = p.right = r.left) != null)</div><div class="line">                    rl.parent = p;</div><div class="line">                if ((pp = r.parent = p.parent) == null)</div><div class="line">                    (root = r).red = false;</div><div class="line">                else if (pp.left == p)</div><div class="line">                    pp.left = r;</div><div class="line">                else</div><div class="line">                    pp.right = r;</div><div class="line">                r.left = p;</div><div class="line">                p.parent = r;</div><div class="line">            &#125;</div><div class="line">            return root;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
+<p>略微一看很难懂,这完全与我们自己的实现不同呀,传两个结点进来这是干什么？<br>跳过我们看具体插入的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">static &lt;K,V&gt; TreeNode&lt;K,V&gt; balanceInsertion(TreeNode&lt;K,V&gt; root,</div><div class="line">                                                  TreeNode&lt;K,V&gt; x) &#123;</div><div class="line">          x.red = true;</div><div class="line">          for (TreeNode&lt;K,V&gt; xp, xpp, xppl, xppr;;) &#123;</div><div class="line">              if ((xp = x.parent) == null) &#123;</div><div class="line">                  x.red = false;</div><div class="line">                  return x;</div><div class="line">              &#125;</div><div class="line">              else if (!xp.red || (xpp = xp.parent) == null)</div><div class="line">                  return root;</div><div class="line">              if (xp == (xppl = xpp.left)) &#123;</div><div class="line">                  if ((xppr = xpp.right) != null &amp;&amp; xppr.red) &#123;</div><div class="line">                      xppr.red = false;</div><div class="line">                      xp.red = false;</div><div class="line">                      xpp.red = true;</div><div class="line">                      x = xpp;</div><div class="line">                  &#125;</div><div class="line">                  else &#123;</div><div class="line">                      if (x == xp.right) &#123;</div><div class="line">                          root = rotateLeft(root, x = xp);</div><div class="line">                          xpp = (xp = x.parent) == null ? null : xp.parent;</div><div class="line">                      &#125;</div><div class="line">                      if (xp != null) &#123;</div><div class="line">                          xp.red = false;</div><div class="line">                          if (xpp != null) &#123;</div><div class="line">                              xpp.red = true;</div><div class="line">                              root = rotateRight(root, xpp);</div><div class="line">                          &#125;</div><div class="line">                      &#125;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">              else &#123;</div><div class="line">                  if (xppl != null &amp;&amp; xppl.red) &#123;</div><div class="line">                      xppl.red = false;</div><div class="line">                      xp.red = false;</div><div class="line">                      xpp.red = true;</div><div class="line">                      x = xpp;</div><div class="line">                  &#125;</div><div class="line">                  else &#123;</div><div class="line">                      if (x == xp.left) &#123;</div><div class="line">                          root = rotateRight(root, x = xp);</div><div class="line">                          xpp = (xp = x.parent) == null ? null : xp.parent;</div><div class="line">                      &#125;</div><div class="line">                      if (xp != null) &#123;</div><div class="line">                          xp.red = false;</div><div class="line">                          if (xpp != null) &#123;</div><div class="line">                              xpp.red = true;</div><div class="line">                              root = rotateLeft(root, xpp);</div><div class="line">                          &#125;</div><div class="line">                      &#125;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
+<p>是否感觉略微的不适与晕眩，但是你耐着性子看下去发现逻辑竟是如此的简单。<br>root代表着在Node[]这个表中每一个位置上第一个结点,而x就是我们需要插入这个位置的结点当然如果两者的<code>key.equals(root.key)</code>其实返回false不然就覆盖了<br>当x的父亲结点为空时，很明显它就直接返回，这个意味着什么很精妙这段代码，不结合源码看真的无法体会到看到一个如此精妙代码时的那种激动感。</p>
+<p>为了帮助更好理解这段代码我们尝试阅读这么两个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">final void treeify(Node&lt;K,V&gt;[] tab) &#123;</div><div class="line">            TreeNode&lt;K,V&gt; root = null;</div><div class="line">            for (TreeNode&lt;K,V&gt; x = this, next; x != null; x = next) &#123;</div><div class="line">                next = (TreeNode&lt;K,V&gt;)x.next;</div><div class="line">                x.left = x.right = null;</div><div class="line">                if (root == null) &#123;</div><div class="line">                    x.parent = null;</div><div class="line">                    x.red = false;</div><div class="line">                    root = x;</div><div class="line">                &#125;</div><div class="line">                else &#123;</div><div class="line">                    K k = x.key;</div><div class="line">                    int h = x.hash;</div><div class="line">                    Class&lt;?&gt; kc = null;</div><div class="line">                    for (TreeNode&lt;K,V&gt; p = root;;) &#123;</div><div class="line">                        int dir, ph;</div><div class="line">                        K pk = p.key;</div><div class="line">                        if ((ph = p.hash) &gt; h)</div><div class="line">                            dir = -1;</div><div class="line">                        else if (ph &lt; h)</div><div class="line">                            dir = 1;</div><div class="line">                        else if ((kc == null &amp;&amp;</div><div class="line">                                  (kc = comparableClassFor(k)) == null) ||</div><div class="line">                                 (dir = compareComparables(kc, k, pk)) == 0)</div><div class="line">                            dir = tieBreakOrder(k, pk);</div><div class="line">                        TreeNode&lt;K,V&gt; xp = p;</div><div class="line">                        if ((p = (dir &lt;= 0) ? p.left : p.right) == null) &#123;</div><div class="line">                            x.parent = xp;</div><div class="line">                            if (dir &lt;= 0)</div><div class="line">                                xp.left = x;</div><div class="line">                            else</div><div class="line">                                xp.right = x;</div><div class="line">                            root = balanceInsertion(root, x);</div><div class="line">                            break;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            moveRootToFront(tab, root);</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p><strong>上面这一段是当一个哈希桶元素数超过8且其中表的长度大于64的时候发生的对哈希桶进行树型化。我们看到一开始是对根结点进行赋值的，但是中间插入了<code>balanceInsertion()</code>这个函数意味着root是为了满足红黑树而不断变化的，而其中的<code>moveRootToFront()</code>是当本身在哈希桶第一个位置的元素不是root时进行把root赋值到哈希桶的第一个位置的值</strong></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/28/迷醉/" rel="prev" title="心情复杂">
+                心情复杂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Narrowkaka" />
+          <p class="site-author-name" itemprop="name">Narrowkaka</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Narrowzly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5342758303" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树"><span class="nav-number">2.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap-红黑树实现"><span class="nav-number">3.</span> <span class="nav-text">HashMap 红黑树实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Narrowkaka</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "56c1e3e25a114318a33071c9d81ce868",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QsnRveW3Et3mJqye8FGe64wX-gzGzoHsz", "DJVMjwipOOFKiASF4nqgk0Nn");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
