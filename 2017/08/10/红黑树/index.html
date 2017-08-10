@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="周卡卡的博客">
 <meta property="og:description" content="前言 从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。 红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。 二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；（3">
 <meta property="og:image" content="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=6dbe1b7a6059252da7171a06049a032c/203fb80e7bec54e78296e37eb9389b504fc26a5c.jpg">
-<meta property="og:image" content="http://yoursite.com/2017/08/10/images/红黑树.png">
+<meta property="og:image" content="http://yoursite.com/images/红黑树.png">
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-anatomy.png">
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert2.png">
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/23tree-insert3c.png">
@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/redblack-1-1.png">
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/redblack-right-rotate.png">
 <meta property="og:image" content="http://algs4.cs.princeton.edu/33balanced/images/color-flip.png">
-<meta property="og:updated_time" content="2017-08-10T13:00:42.934Z">
+<meta property="og:updated_time" content="2017-08-10T13:04:27.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红黑树">
 <meta name="twitter:description" content="前言 从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。 红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。 二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；（3">
@@ -396,7 +396,7 @@
 <p>从jdk8.0开始HashMap进行了一次革新，为了提高查找效率在哈希桶内元素超过8个时自动变为红黑树结构。</p>
 <p>红黑树到底是为了解决什么问题存在的？它又是怎么出现的？我们首先要理解一颗二叉查找树。</p>
 <p>二叉查找树或者是一棵空树，或者是具有下列性质的二叉树：<br>（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；<br>（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；<br>（3）左、右子树也分别为二叉查找树；<br><img src="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=6dbe1b7a6059252da7171a06049a032c/203fb80e7bec54e78296e37eb9389b504fc26a5c.jpg" alt="">.<br>当然如果要说二叉查找树的话我们必须从符号表说起，可我们今天的目的是为了简述红黑树，所以二叉查找树的各种实现就当大家都已经懂得。</p>
-<p>那为什么会出现红黑树呢，我们发现一种情况当输入的键值对键值按升序或者降序插入的时候，会有下图的情况出现<br><img src="..\images\红黑树.png" alt="红黑树升序.png"></p>
+<p>那为什么会出现红黑树呢，我们发现一种情况当输入的键值对键值按升序或者降序插入的时候，会有下图的情况出现<br><img src="/images/红黑树.png" alt="红黑树升序.png"></p>
 <p>而这种情况也是最糟糕的情况假设我们要查找键为5的结点，那么花费的时间就是最长的了，我们发现其实查找时间其实跟树的高度应该是呈现一种正比的关系。<br>那么可能有些同学想到了平衡二叉查找树，也就是任何节点的两个子树的高度最大差别为一。但是我们发现一个问题，那就是每次插入或者删除需要平衡次数非常多。那么有什么什么折中的方案既能保证能正常二叉查找树的性质又能保证查找的效率。</p>
 </blockquote>
 <h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><blockquote>
